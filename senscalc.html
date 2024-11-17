@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./indexStyle.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <title>haypro's Cursor Database</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ET7FKSTV79"></script>
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ET7FKSTV79"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ET7FKSTV79');
+</script>
+
+<!-- CSS Styling -->
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1, p, label {
+        color: rgb(209, 205, 199);
+    }
+
+    input.form-control, select.form-control {
+        background-color: rgb(36, 41, 46);
+        width: 150px;
+        color: rgb(209, 205, 199);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 0 auto;
+        display: block;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    input.form-control:focus, select.form-control:focus {
+        background-color: rgb(42, 47, 52);
+        color: rgb(209, 205, 199);
+    }
+
+    input.form-control:disabled {
+        background-color: rgb(28, 32, 36);
+        color: rgb(209, 205, 199);
+    }
+
+    .btn-primary {
+        background-color: rgb(32, 126, 163);
+        border: none;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.486);
+        color: rgb(209, 205, 199);
+        font-size: 12px;
+        transition: 0.2s ease-out;
+        margin-top: 10px;
+    }
+
+    .btn-primary:hover {
+        background-color: rgb(21, 83, 107);
+        transition: 0.2s ease-out;
+    }
+
+    .footer {
+        margin-top: auto;
+        text-align: center;
+        padding: 20px;
+        background-color: #2a2d34;
+        color: #bdc3c7;
+        width: 100%;
+        position: relative;
+        margin-top: auto;
+        bottom: 0;
+    }
+
+    .container {
+        margin-top: 30px;
+    }
+
+    body {
+        color: rgb(209, 205, 199);
+        overflow-x: hidden;
+        background-color: #1c1e22;
+    }
+
+    .header {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        padding: 15px;
+        background-color: #2a2d34;
+        border-bottom: 2px solid #3a3d44;
+    }
+
+    .header a {
+        color: #e3e3e3;
+        text-decoration: none;
+    }
+
+    .header a:hover {
+        color: #439eff;
+    }
+
+    label {
+        margin-bottom: 0;
+        font-size: 14px;
+    }
+
+    .btn {
+        margin-bottom: 20px;
+    }
+
+    .wrapperMain {
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        margin-top: 0px;
+    }
+
+    .wrapperBit {
+        width: 200px;
+    }
+
+    .content-wrapper {
+        min-height: calc(100vh - 60px);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container {
+        flex-grow: 1;
+    }
+</style>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <a href="./index.html">HOME</a>
+        <a href="./generate.html">GENERATE CURSOR</a>
+        <a href="./senscalc.html">SENSITIVITY CALCULATOR</a>
+    </div>
+
+    <!-- True DPI Calculator -->
+    <div class="content-wrapper">
+        <div class="container">
+            <h1 class="text-center">True DPI Calculator</h1>
+            <p>Using your current DPI, desired DPI, and Windows Sensitivity, you can calculate the multiplier to achieve the desired DPI.</p>
+            <div id="container" class="text-center">
+                <form onsubmit="calculateTrueDPI(event)">
+
+                    <div class="wrapperMain">
+                        <div class="wrapperBit">
+                            <label for="currentDPI">Current DPI</label><br>
+                            <input type="number" id="currentDPI" name="currentDPI" class="form-control">
+
+                            <label for="desiredDPI">Desired DPI</label><br>
+                            <input type="number" id="desiredDPI" name="desiredDPI" class="form-control"><br>
+                        </div>
+
+                        <div class="wrapperBit">
+                            <label for="currentSensitivity">Current Windows Sensitivity</label><br>
+                            <select id="currentSensitivity" name="currentSensitivity" class="form-control">
+                                <option value="0.03125">1</option>
+                                <option value="0.0625">2</option>
+                                <option value="0.25">3</option>
+                                <option value="0.5">4</option>
+                                <option value="0.75">5</option>
+                                <option value="1">6</option>
+                                <option value="1.5">7</option>
+                                <option value="2">8</option>
+                                <option value="2.5">9</option>
+                                <option value="3">10</option>
+                                <option value="3.5">11</option>
+                            </select>
+
+                            <label for="desiredSensitivity">Desired Windows Sensitivity</label><br>
+                            <select id="desiredSensitivity" name="desiredSensitivity" class="form-control">
+                                <option value="0.03125">1</option>
+                                <option value="0.0625">2</option>
+                                <option value="0.25">3</option>
+                                <option value="0.5">4</option>
+                                <option value="0.75">5</option>
+                                <option value="1">6</option>
+                                <option value="1.5">7</option>
+                                <option value="2">8</option>
+                                <option value="2.5">9</option>
+                                <option value="3">10</option>
+                                <option value="3.5">11</option>
+                            </select><br>
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Calculate" class="btn btn-primary">
+                </form>
+                <p id="resultTrueSens"></p>
+            </div>
+        </div>
+
+        <!-- Resolution & PPI DPI Calculator -->
+        <div class="container mt-5">
+            <h1 class="text-center">Resolution & PPI True DPI Calculator</h1>
+            <p>Calculate the new DPI for different resolutions and monitor sizes, taking Windows Sensitivity into account.</p>
+            <div id="container" class="text-center">
+                <form onsubmit="scalingDPI(event)">
+                    <label for="perceivedSensitivity">
+                        <span title='This option will calculate your "perceived" DPI across monitors - that is, moving your mouse X distance will always move your cursor Y distance even across different monitor sizes.'>
+                            <input type="checkbox" id="perceivedSensitivity" name="perceivedSensitivity" onchange="toggleMonitorInputs()">
+                            Calculate perceived sensitivity <i>(Hover for more info)</i>
+                        </span>
+                    </label><br><br>
+
+                    <div class="wrapperMain">
+                        <div class="wrapperBit">
+                            <label for="currentMonitor">Current Monitor Size (inches)</label><br>
+                            <input type="number" id="currentMonitor" name="currentMonitor" class="form-control" disabled>
+                            <label for="newMonitor">New Monitor Size (inches)</label><br>
+                            <input type="number" id="newMonitor" name="newMonitor" class="form-control" disabled><br>
+                        </div>
+
+                        <div class="wrapperBit">
+                            <label for="currentWidth">Native Resolution (Width)</label><br>
+                            <input type="number" id="currentWidth" name="currentWidth" class="form-control">
+                            <label for="currentWidth">Native Resolution (Height)</label><br>
+                            <input type="number" id="currentHeight" name="currentHeight" class="form-control"><br>
+                        </div>
+
+                        <div class="wrapperBit">
+                            <label for="newWidth">New Resolution (Width)</label><br>
+                            <input type="number" id="newWidth" name="newWidth" class="form-control">
+                            <label for="newWidth">New Resolution (Height)</label><br>
+                            <input type="number" id="newHeight" name="newHeight" class="form-control"><br>
+                        </div>
+                    </div>
+
+                    <div class="wrapperMain">
+                        <div class="wrapperBit">
+                            <label for="DPI">Current DPI</label><br>
+                            <input type="number" id="DPI" name="DPI" class="form-control"><br>
+                        </div>
+
+                        <div class="wrapperBit">
+                            <label for="currentSensitivity">Current Windows Sensitivity</label><br>
+                            <select id="currentSensitivityRes" name="currentSensitivityRes" class="form-control">
+                                <option value="0.03125">1</option>
+                                <option value="0.0625">2</option>
+                                <option value="0.25">3</option>
+                                <option value="0.5">4</option>
+                                <option value="0.75">5</option>
+                                <option value="1">6</option>
+                                <option value="1.5">7</option>
+                                <option value="2">8</option>
+                                <option value="2.5">9</option>
+                                <option value="3">10</option>
+                                <option value="3.5">11</option>
+                            </select><br>
+                        </div>
+
+                        <div class="wrapperBit">
+                            <label for="desiredSensitivity">Desired Windows Sensitivity</label><br>
+                            <select id="desiredSensitivityRes" name="desiredSensitivityRes" class="form-control">
+                                <option value="0.03125">1</option>
+                                <option value="0.0625">2</option>
+                                <option value="0.25">3</option>
+                                <option value="0.5">4</option>
+                                <option value="0.75">5</option>
+                                <option value="1">6</option>
+                                <option value="1.5">7</option>
+                                <option value="2">8</option>
+                                <option value="2.5">9</option>
+                                <option value="3">10</option>
+                                <option value="3.5">11</option>
+                            </select><br>
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Calculate" class="btn btn-primary" id="calcBtn">
+                </form>
+                <p id="resultScaler"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="text">haypro's Cursor Database. 2024. Built using HTML/CSS/JS. Data gathered using Python / ROBLOX API.</div>
+    </div>
+
+    <!-- Script for True DPI Calculator -->
+    <script>
+        function calculateTrueDPI(event) {
+            event.preventDefault();
+
+            // Get the current and desired DPI from the input fields
+            const currentDPI = parseFloat(document.getElementById('currentDPI').value);
+            const desiredDPI = parseFloat(document.getElementById('desiredDPI').value);
+
+            // Get the current and desired Windows Sensitivity multipliers
+            const currentSensitivity = parseFloat(document.getElementById('currentSensitivity').value);
+            const desiredSensitivity = parseFloat(document.getElementById('desiredSensitivity').value);
+
+            // Check if inputs are valid
+            if (!isNaN(currentDPI) && !isNaN(desiredDPI) && !isNaN(currentSensitivity) && !isNaN(desiredSensitivity) && desiredDPI !== 0) {
+                // Calculate the effective multiplier considering both DPI and Windows Sensitivity
+                const multiplier = (desiredDPI / currentDPI) * (currentSensitivity / desiredSensitivity);
+                document.getElementById('resultTrueSens').textContent = `Multiply your current DPI by: ${multiplier.toFixed(5)} to achieve your desired DPI with the new sensitivity.`;
+                document.getElementById('resultTrueSens').style.textDecoration = 'underline';
+                document.getElementById('resultTrueSens').style.fontSize = '20px';
+            } else {
+                document.getElementById('resultTrueSens').textContent = 'Please enter valid values for DPI and Sensitivity!';
+                document.getElementById('resultTrueSens').style.textDecoration = 'underline';
+                document.getElementById('resultTrueSens').style.fontSize = '20px';
+            }
+        }
+
+        function calculatePPI(resWidth, resHeight, monitorSize) {
+            return Math.sqrt((resWidth ** 2) + (resHeight ** 2)) / monitorSize;
+        }
+
+        function scalingDPI(event) {
+            event.preventDefault();
+
+            // Get input values
+            const currentMonitor = parseFloat(document.getElementById('currentMonitor').value);
+            const newMonitor = parseFloat(document.getElementById('newMonitor').value);
+            const currentWidth = parseFloat(document.getElementById('currentWidth').value);
+            const currentHeight = parseFloat(document.getElementById('currentHeight').value);
+            const newWidth = parseFloat(document.getElementById('newWidth').value);
+            const newHeight = parseFloat(document.getElementById('newHeight').value);
+            const DPI = parseFloat(document.getElementById('DPI').value);
+
+            // Get sensitivity multipliers
+            const currentSensitivity = parseFloat(document.getElementById('currentSensitivityRes').value);
+            const desiredSensitivity = parseFloat(document.getElementById('desiredSensitivityRes').value);
+
+            // Validate inputs
+            if (!isNaN(currentWidth) && !isNaN(currentHeight) && !isNaN(newWidth) && !isNaN(newHeight) && !isNaN(DPI)) {
+                let newDPI;
+                const useMonitorSize = document.getElementById('perceivedSensitivity').checked;
+
+                if (useMonitorSize && !isNaN(currentMonitor) && !isNaN(newMonitor)) {
+                    const currentPPI = calculatePPI(currentWidth, currentHeight, currentMonitor);
+                    const newPPI = calculatePPI(newWidth, newHeight, newMonitor);
+                    newDPI = DPI * (newPPI / currentPPI);
+                } else {
+                    newDPI = DPI * (newWidth / currentWidth);
+                }
+
+                // Apply sensitivity scaling
+                newDPI = newDPI * (currentSensitivity / desiredSensitivity);
+
+                document.getElementById('resultScaler').textContent = `Your new DPI should be approximately: ${newDPI.toFixed(2)}`;
+                document.getElementById('resultScaler').style.textDecoration = 'underline';
+                document.getElementById('resultScaler').style.fontSize = '20px';
+            } else {
+                document.getElementById('resultScaler').textContent = 'Please fill out all fields with valid numbers!';
+                document.getElementById('resultScaler').style.textDecoration = 'underline';
+                document.getElementById('resultScaler').style.fontSize = '20px';
+            }
+        }
+
+        function toggleMonitorInputs() {
+            const usePerceivedSensitivity = document.getElementById('perceivedSensitivity').checked;
+            const monitorInputs = ['currentMonitor', 'newMonitor'];
+
+            monitorInputs.forEach(id => {
+                const inputElement = document.getElementById(id);
+                inputElement.disabled = !usePerceivedSensitivity;
+            });
+        }
+    </script>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleMonitorInputs() {
+            const usePerceivedSensitivity = document.getElementById('perceivedSensitivity').checked;
+            document.getElementById('currentMonitor').disabled = !usePerceivedSensitivity;
+            document.getElementById('newMonitor').disabled = !usePerceivedSensitivity;
+        }
+    </script>
+</body>
+
+</html>
